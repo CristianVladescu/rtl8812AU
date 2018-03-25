@@ -1,3 +1,38 @@
+## Note to self
+To install the driver for EW-7811UTC on ubuntu server 17.10:
+```
+apt-get update
+apt-get install build-essential git ifupdown wireless-tools wpasupplicant
+git clone https://github.com/CristianVladescu/rtl8812au.git
+cd rtl8812au
+# this will fix driver problems with reconnecting, but does not work after reboot
+# so it would have to be 'insmod 8812au.ko' after every reboot
+#sed -i 's/CONFIG_POWER_SAVING = y/CONFIG_POWER_SAVING = n/' Makefile
+make && make install
+echo 'auto enx74da38e666c8
+iface enx74da38e666c8 inet dhcp
+wpa-essid <essid>
+wpa-psk <password>' >> /etc/network/interfaces
+reboot
+```
+
+On disconnect:
+`rmmod 8812au && modprobe 8812au`
+or reboot
+
+Debugging commands:
+```
+dmesg - look for
+[  182.422346] usb 1-1: reset high-speed USB device number 2 using ehci-pci
+[  189.609639] usbcore: registered new interface driver rtl8812au
+[  189.610240] rtl8812au 1-1:1.0 enx74da38e666c8: renamed from wlan0
+wpa_cli status
+iwconfig
+tail -f /var/log/syslog
+```
+
+====================================================================
+
 ## Realtek 802.11ac (rtl8812au)
 
 This is a fork of the Realtek 802.11ac (rtl8812au) v4.2.2 (7502.20130507)
