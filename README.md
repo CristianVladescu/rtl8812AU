@@ -18,7 +18,7 @@ reboot
 
 On disconnect:
 `rmmod 8812au && modprobe 8812au`
-or reboot
+or reboot, it will not reconnect on its own
 
 Debugging commands:
 ```
