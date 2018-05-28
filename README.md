@@ -1,3 +1,5 @@
+### Update: https://github.com/aircrack-ng/rtl8812au works straight forward on ubuntu server 18.04
+
 ## Note to self
 To install the driver for EW-7811UTC on ubuntu server 17.10:
 ```
